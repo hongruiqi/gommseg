@@ -19,10 +19,10 @@ int mmseg_init(char *path)
 	if (mgr_) {
 		return 0;
 	}
-	SegmenterManager *mgr = new SegmenterManager();
 	if (!path) {
 		return -1;
 	}
+	SegmenterManager *mgr = new SegmenterManager();
 	int ret = mgr->init(path);
 	if (ret != 0) {
 		delete mgr;
@@ -42,16 +42,14 @@ int mmseg_segment(char *text, Token ** tokens)
 	Segmenter *seg = mgr_->getSegmenter(0);
 	seg->setBuffer((u1 *) text, (u4) strlen(text));
 
-	vector < Token > segs;
+	vector<Token> segs;
 	while (1) {
 		u2 len = 0, symlen = 0;
 		char *token = (char *)seg->peekToken(len, symlen);
 		if (!token || !*token || !len) {
 			break;
 		}
-		Token t;
-		t.Start = token;
-		t.Len = (int)len;
+		Token t = {token, int(len)};
 		segs.push_back(t);
 		seg->popToken(len);
 	}
