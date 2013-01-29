@@ -26,6 +26,10 @@ gommseg is a go wrap for libmmseg: http://www.coreseek.cn/opensource/mmseg/
 ### Compile && Install gommseg
 
 	go install
+
+### Test
+
+	go test -ldflags="-r ."
 	
 ## Usage
 
