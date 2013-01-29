@@ -16,11 +16,11 @@ SegmenterManager *mgr_ = NULL;
 
 int mmseg_init(char *path)
 {
-	if (mgr_) {
-		return 0;
-	}
 	if (!path) {
 		return -1;
+	}
+	if (mgr_) {
+		return 0;
 	}
 	SegmenterManager *mgr = new SegmenterManager();
 	int ret = mgr->init(path);
@@ -35,6 +35,9 @@ int mmseg_init(char *path)
 
 int mmseg_segment(char *text, Token ** tokens)
 {
+	if (!text) {
+		return -1;
+	}
 	if (!mgr_) {
 		cerr << "error: init not called\n";
 		return -1;
